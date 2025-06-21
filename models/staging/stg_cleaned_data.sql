@@ -34,3 +34,5 @@ stg_cleaned_data as (
 )
 
 select * from stg_cleaned_data
+
+
