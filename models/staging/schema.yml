@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: stg_validated_data
+    description: "Raw data cleaned and validated and stored in BigQuery"
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product."
+        tests:
+          - not_null
+        
+      - name: product_name
+        description: "Name of the product."
+        tests:
+          - not_null
+      
+      - name: category
+        description: "Category to which the product belongs."
+        tests:
+          - not_null
+      
+      - name: discounted_price
+        description: "Price of the product after discount."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_greater_than:
+              value: 0
+              or_equal: true
+      
+      - name: actual_price
+        description: "Original price of the product before discount."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_greater_than:
+              value: 0
+              or_equal: true
+      
+      - name: discount_percentage
+        description: "Percentage of discount applied."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 1
+              strictly: false
+      
+      - name: rating
+        description: "Average user rating of the product."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 5
+              strictly: false
+      
+      - name: rating_count
+        description: "Number of ratings received."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_greater_than:
+              value: 0
+              or_equal: true
+      
+      - name: about_product
+        description: "Description or details about the product."
+      
+      - name: user_id
+        description: "Unique identifier for the user who reviewed."
+        tests:
+          - not_null
+      
+      - name: user_name
+        description: "Name of the user who reviewed the product."
+        tests:
+          - not_null
+      
+      - name: review_id
+        description: "Unique identifier for the review."
+        tests:
+          - not_null
+      
+      - name: review_title
+        description: "Title of the review."
+      
+      - name: review_content
+        description: "Full text content of the review."
+      
+      - name: img_link
+        description: "URL link to the product image."
+      
+      - name: product_link
+        description: "URL link to the product page."

@@ -1,10 +1,8 @@
-{{ config(materialized='ephemeral')}}
-
 with base as (
-    select * from {{ ref('stg_raw_data')}}
+    select * from {{source('raw', 'amazon_review_data')}}
 ),
 
-cleaned as (
+stg_cleaned_data as (
     select 
         product_id,
         product_name,
@@ -20,10 +18,19 @@ cleaned as (
         user_id,
         user_name,
         review_id,
-        img_link,
-        product_link
+        case
+            when regexp_contains(img_link, r'^https?://[\w./%-]+$' )
+                then img_link
+            else null
+        end as img_link,
+
+        case
+            when regexp_contains(product_link, r'^https?://[\w./%-]+$')
+                then product_link
+            else null
+        end as product_link
 
     from base
 )
 
-select * from cleaned
+select * from stg_cleaned_data
