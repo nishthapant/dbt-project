@@ -1,0 +1,48 @@
+name: DBT CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  run-dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt
+        run: |
+          pip install dbt-bigquery
+
+      - name: Write BigQuery service account key to a file
+        run: |
+          echo "${{ secrets.BIGQUERY_KEY }}" | base64 -d > bigquery-key.json
+
+      - name: Set up dbt profile
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml << EOF
+          dbt_project:
+            target: dev
+            outputs:
+              dev:
+                type: bigquery
+                method: service-account
+                project: keen-genius-463512-d0
+                dataset: dbt_staging
+                threads: 2
+                keyfile: ${GITHUB_WORKSPACE}/bigquery-key.json
+          EOF
+
+      - name: Run dbt commands
+        run: |
+          dbt deps
+          dbt run
+          dbt test
