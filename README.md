@@ -8,11 +8,16 @@ The pipeline uses a modular dbt architecture, with separation between staging, d
 
 ## Pipeline Flow
 
+### **Data Source**
+- The raw dataset used in this pipeline was sourced from Kaggle, containing e-commerce product reviews.
+- This dataset serves as the foundation for all transformations and modeling in the project.
+
+
 ### 1. **Ingestion**
 - A static `.csv` file containing product reviews is uploaded to **Google Cloud Storage (GCS)**.
 - This file serves as the **raw data source**.
 
-### 2. **Transformation (dbt)**
+### 2. **Transformation (DBT)**
 The pipeline consists of multiple layers of transformation:
   - **Staging models**: Clean and prepare the raw data
   - **Dimensional models**: Create dimension tables:
