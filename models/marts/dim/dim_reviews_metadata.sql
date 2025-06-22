@@ -1,5 +1,3 @@
--- {{ config(materialized='table') }}
-
 with base as (
     select  review_id,
         review_title,

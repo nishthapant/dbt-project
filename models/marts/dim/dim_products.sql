@@ -1,5 +1,3 @@
--- {{ config(materialized='table') }}
-
 with base as (
     select
         product_id,

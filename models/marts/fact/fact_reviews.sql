@@ -1,5 +1,3 @@
--- {{ config(materialized='table') }}
-
 with base as (
     select 
         review_id,
@@ -13,7 +11,6 @@ with base as (
             partition by review_id
             order by rating desc nulls last
         ) as row_num
-    
     from {{ref('stg_validated_data')}}
     where review_id is not null
 ),
@@ -27,7 +24,6 @@ fact_reviews as (
         discounted_price,
         rating,
         user_id
-    
     from base
     where row_num=1
 )
