@@ -3,6 +3,8 @@ name: DBT CI
 on:
   push:
     branches: [main]
+  pull_requests:
+    branches: [main]
 
 jobs:
   run-dbt:
