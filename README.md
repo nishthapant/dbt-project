@@ -87,12 +87,4 @@ Both DAGs are currently triggered manually with plans to enable automated schedu
 - Integrate a BI tool (e.g., Looker Studio) for reporting
 - Automate raw data uploads via APIs or scheduled jobs
 
-<br>
-
-## Author
-
-**Nishtha Pant**  
-Early-career software & data engineer with a passion for building scalable data solutions and leveraging cloud + AI tools for smart insights.
-
-
 
