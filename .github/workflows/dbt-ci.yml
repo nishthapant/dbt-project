@@ -3,6 +3,8 @@ name: DBT CI
 on:
   push:
     branches: [main]
+  pull_requests:
+    branches: [main]
 
 jobs:
   run-dbt:
@@ -11,6 +13,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: 'projects/31215446924/locations/global/workloadIdentityPools/github-pool/providers/github'
+          service_account: 'dbt-service-account@keen-genius-463512-d0.iam.gserviceaccount.com'
+          token_format: 'access_token'
 
       - name: Set up python
         uses: actions/setup-python@v5
@@ -34,11 +44,10 @@ jobs:
             outputs:
               dev:
                 type: bigquery
-                method: service-account
                 project: keen-genius-463512-d0
                 dataset: dbt_staging
                 threads: 2
-                keyfile: ${GITHUB_WORKSPACE}/bigquery-key.json
+                method: oauth
           EOF
 
       - name: Run dbt commands
