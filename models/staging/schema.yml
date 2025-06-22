@@ -23,17 +23,17 @@ models:
         description: "Price of the product after discount."
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_be_greater_than:
-              value: 0
-              or_equal: true
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              strictly: false
       
       - name: actual_price
         description: "Original price of the product before discount."
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_be_greater_than:
-              value: 0
-              or_equal: true
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              strictly: false
       
       - name: discount_percentage
         description: "Percentage of discount applied."
@@ -56,9 +56,9 @@ models:
         description: "Number of ratings received."
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_be_greater_than:
-              value: 0
-              or_equal: true
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              strictly: false
       
       - name: about_product
         description: "Description or details about the product."
@@ -77,6 +77,7 @@ models:
         description: "Unique identifier for the review."
         tests:
           - not_null
+          - unique
       
       - name: review_title
         description: "Title of the review."

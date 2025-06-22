@@ -1,0 +1,9 @@
+models:
+  - name: fact_reviews
+    description: "Fact table for review information"
+    columns:
+      - name: review_id
+        description: "Primary key"
+        tests:
+          - not_null
+          - unique

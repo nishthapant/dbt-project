@@ -1,0 +1,18 @@
+models:
+  - name: dim_products
+    description: "Dimensional table for product information"
+    columns:
+      - name: product_id
+        description: "Primary key"
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_users
+    description: "Dimensional table for user information"
+    columns:
+      - name: user_id
+        description: "Primary key"
+        tests:
+          - not_null
+          - unique
