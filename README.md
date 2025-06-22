@@ -5,8 +5,10 @@ This project is part of an end-to-end data pipeline that processes and transform
 The pipeline uses a modular dbt architecture, with separation between staging, dimensional modeling, fact generation, and denormalization. Apache Airflow is used for orchestration, ensuring reliable and maintainable workflows.
 
 
+## Data Pipeline Architecture & Flow
 
-## Pipeline Flow
+![Data pipeline architecture diagram](img/pipeline_architecture.png)
+
 
 ### **Data Source**
 - The raw dataset used in this pipeline was sourced from Kaggle, containing e-commerce product reviews.
