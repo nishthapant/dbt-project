@@ -7,7 +7,7 @@ The pipeline uses a modular dbt architecture, with separation between staging, d
 
 ## Data Pipeline Architecture & Flow
 
-![Data pipeline architecture diagram](img/pipeline_architecture.png)
+![Data pipeline architecture diagram](img/pipeline_arch.png)
 
 
 ### **Data Source**
